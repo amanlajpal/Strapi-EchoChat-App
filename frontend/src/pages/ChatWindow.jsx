@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useDispatch } from "react-redux";
 import socket from "../utils/SocketInstance";
+import { setIsAuthenticated } from "../redux/slices/authSlice";
 
 function groupMessagesByDate(messages) {
   const groups = {};
