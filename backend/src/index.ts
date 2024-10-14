@@ -20,7 +20,7 @@ export default {
     var io = require("socket.io")(strapi.server.httpServer, {
       cors: {
         // cors setup
-        origin: "http://localhost:5173",
+        origin: strapi.config.get('custom.allowedOrigin'),
         methods: ["GET", "POST"],
         allowedHeaders: [],
         credentials: true,
