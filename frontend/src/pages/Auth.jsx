@@ -39,6 +39,8 @@ export default function Auth() {
 
     } catch (error) {
         console.error('Login failed', error);
+        const errorMessage = error?.response?.data?.error?.message || "Login failed";
+        alert(errorMessage);
     }
   }
 
@@ -57,6 +59,8 @@ export default function Auth() {
 
     } catch (error) {
         console.error('Signup failed', error);
+        const errorMessage = error?.response?.data?.error?.message || "Signup failed";
+        alert(errorMessage);
     }
   }
 

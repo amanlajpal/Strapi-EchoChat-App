@@ -49,6 +49,8 @@ export default function ChatWindow() {
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [currentSession, setCurrentSession] = useState(null);
+  const [groupedMessages, setGroupedMessages] = useState();
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
@@ -134,12 +136,11 @@ export default function ChatWindow() {
     setIsSidebarOpen(false);
   };
 
-  const currentSession = sessions.find(
-    (session) => session.id === currentSessionId
-  );
-  const groupedMessages = currentSession
-    ? groupMessagesByDate(currentSession.messages)
-    : [];
+  useEffect(() => {
+    const session = sessions.find((session) => session.id === currentSessionId);
+    setCurrentSession(session);
+    setGroupedMessages(session ? groupMessagesByDate(session.messages) : []);
+  }, [sessions, currentSessionId]);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -294,7 +295,7 @@ export default function ChatWindow() {
               </p>
             </div>
           ) : (
-            groupedMessages.map(([date, dateMessages]) => (
+            groupedMessages && groupedMessages?.map(([date, dateMessages]) => (
               <div key={date}>
                 <div className="flex justify-center my-4">
                   <span
