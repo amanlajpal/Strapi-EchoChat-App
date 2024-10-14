@@ -32,6 +32,7 @@ export default {
       socket.on("chat message", (msg) => {
         console.log("Message received:", msg);
         msg.sender = "server";
+        msg.id = Date.now().toString();
         // Echo the message back to the client
         socket.emit("chat message", msg);
       });
