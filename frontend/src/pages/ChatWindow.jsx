@@ -101,7 +101,6 @@ export default function ChatWindow() {
         timestamp: new Date(),
         sessionId: currentSessionId,
       };
-      delete newMsg.sessionId;
       socket.emit("chat message", newMsg);
       setSessions((prevSessions) =>
         prevSessions.map((session) =>
@@ -150,7 +149,6 @@ export default function ChatWindow() {
     socket.on("chat message", (receivedMessage) => {
       receivedMessage.timestamp = new Date(receivedMessage?.timestamp);
       const receivedSessionId = receivedMessage.sessionId;
-      delete receivedMessage.sessionId;
       setSessions((prevSessions) =>
         prevSessions.map((session) =>
           session.id === receivedSessionId
