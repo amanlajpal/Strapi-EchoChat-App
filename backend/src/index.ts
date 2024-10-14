@@ -31,6 +31,7 @@ export default {
       // Listen for messages from the client
       socket.on("chat message", (msg) => {
         console.log("Message received:", msg);
+        msg.sender = "server";
         // Echo the message back to the client
         socket.emit("chat message", msg);
       });
